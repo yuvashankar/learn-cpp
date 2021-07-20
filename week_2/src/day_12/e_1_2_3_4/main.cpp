@@ -8,6 +8,7 @@ protected:
     SHAPE m_shape_type;
 public:
     Shape(/* args */);
+    Shape(SHAPE shape_type);
     Shape(const Shape& rhs);
     virtual ~Shape() { std::cout << "Shape Destructor" << std::endl; };
     
@@ -17,6 +18,10 @@ public:
 };
 
 Shape::Shape(/* args */) : m_shape_type(NONE)
+{
+}
+
+Shape::Shape(SHAPE shape_type) : m_shape_type(shape_type)
 {
 }
 
@@ -38,12 +43,12 @@ public:
     virtual ~Rectangle();
 }; 
 
-Rectangle::Rectangle(/* args */) : m_length(10),  m_width(5)
+Rectangle::Rectangle(/* args */) : Shape(RECTANGLE), m_length(10),  m_width(5)
 {
-    this -> m_shape_type = RECTANGLE;
+    // this -> m_shape_type = RECTANGLE;
 }
 
-Rectangle :: Rectangle(std::uint32_t length, std::uint32_t width) : m_length(length), m_width (width)
+Rectangle :: Rectangle(std::uint32_t length, std::uint32_t width) : Shape(RECTANGLE), m_length(length), m_width (width)
 {
     this -> m_shape_type = RECTANGLE;
 }
@@ -107,6 +112,8 @@ int main(int argc, char const *argv[])
 
     Square* my_new_square = my_square.Clone();
     std::cout << my_new_square->get_length() << std::endl;
+
+    delete my_new_square;
  
     return 0;
 }
